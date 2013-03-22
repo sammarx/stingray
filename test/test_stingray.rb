@@ -1,7 +1,12 @@
-require 'helper'
+require 'minitest/spec'
+require 'minitest/autorun'
 
-class TestStingray < Test::Unit::TestCase
-  should "probably rename this file and start testing for real" do
-    flunk "hey buddy, you should probably rename this file and start testing for real"
+describe Stingray::Config do
+  it "must be created with arguments" do
+    Stingray::Config.new.must_be_instance_of Array
+  end
+
+  it "can be created with a specific size" do
+    Array.new(10).size.must_equal 10
   end
 end

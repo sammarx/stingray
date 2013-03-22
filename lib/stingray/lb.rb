@@ -2,20 +2,30 @@ module Stingray
   
   class LB
    # attr_accessor :name, :servers, :rules, :extras
-    
-    def initialize(name)
+    def initialize(name,args={})
       
       @name=name
-      @config=config
+      puts args.class
+      @url=args[:url]
+      @user=args[:user]
+      @password=args[:password]
     end
 
+   
     def config
-      Stingray::Config.new
+
+      @config||=Stingray::Config.new(@url,@user,@password)
+      
     end
 
-    def get_servers
-      puts @@rest
-      @lb.get_endpoint('extra')
+    def get_vservers
+      @lb=config
+      @lb.get_endpoint('vservers')
+    end
+
+    def get_pools
+      @lb=config
+      @lb.get_endpoint('pools')
 
     end
     
