@@ -22,7 +22,7 @@ module Stingray
     # Parse out the endpoint
     def get_endpoint(endpoint='')
       begin
-        @r=self.get_rest[endpoint].get
+        @r=self.get_rest[URI.escape(endpoint)].get
       rescue => error
         error.response
       end      
