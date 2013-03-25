@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     "Gemfile",
-    "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
     "VERSION",
