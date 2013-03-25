@@ -4,6 +4,9 @@ require 'map'
 require_relative "stingray/service_interface"
 require_relative "stingray/config"
 require_relative "stingray/pools"
+require_relative "stingray/extra"
+require_relative "stingray/vservers"
+require_relative "stingray/monitors"
 
 
 module Stingray
