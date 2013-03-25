@@ -12,13 +12,17 @@ module Stingray
         @pools=get_endpoint("pools").keys
       end
 
-      # Get a pool.  If the pool does not exist, give the most basic hash back for adding nodes.  
-      # The rest of the data will be populated when the pool is saved
+      # Get a named pool
       def pool(name)
-        @pool_hash=get_endpoint("pools/#{name}") rescue Map.new.set(:properties, :basic, :nodes,[])
         @name=name
-
+        @pool_hash=get_endpoint("pools/#{@name}") rescue nil
       end  
+
+      # Create a new pool
+      def create(name)
+        @name=name
+        @pool_hash=Map.new.set(:properties, :basic, :nodes,[])
+      end
 
       # list the nodes of a pool
       def nodes
