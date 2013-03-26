@@ -1,12 +1,22 @@
 require 'minitest/spec'
 require 'minitest/autorun'
+require_relative "../lib/stingray"
 
-describe Stingray::Config do
-  it "must be created with arguments" do
-    Stingray::Config.new.must_be_instance_of Array
-  end
+describe "Stingray" do
 
-  it "can be created with a specific size" do
-    Array.new(10).size.must_equal 10
-  end
+
+    it "should return a configuration object" do
+      Stingray.config.must_be_kind_of(Stingray::Config)
+    end
+
+    it "should pass arguments through #config" do
+      Stingray.config({:url => "url", :user => "user", :password => "password"}).must_be_instance_of(Stingray::Config)
+    end
+
+    it "should return the same config when no options are added" do
+      Stingray.config.must_equal(Stingray.config)
+    end
+
+
+
 end
