@@ -23,7 +23,8 @@ gem install pkg/stingray-0.0.1.gem
     password: <password for authentication>
 
 The URL must be the full path to the Stingray REST endpoint -
-eg. https://<stingray hostname>:<REST port>/api/tm/1.0/config/active/  
+eg.  
+    https://<stingray hostname>:<REST port>/api/tm/1.0/config/active/ 
 
 PUT and DELETE operations will only work over HTTPS.
 
