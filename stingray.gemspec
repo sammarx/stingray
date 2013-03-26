@@ -57,4 +57,5 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<simplecov>, [">= 0"])
   end
 end
-
+s.add_dependency "map"
+s.add_dependency "rest_client"
