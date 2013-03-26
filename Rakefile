@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "stingray"
   gem.homepage = "http://github.com/sammarx/stingray"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Stingray gem for interfacing with the Riverbed Stingray loadbalancers.}
+  gem.description = %Q{Stingray gem for interfacing with the Riverbed Stingray loadbalancers.}
   gem.email = "smarx@moxiesoft.com"
   gem.authors = ["Sam Marx"]
   # dependencies defined in Gemfile
