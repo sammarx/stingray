@@ -4,7 +4,61 @@ Stingray gem for interfacing with the Riverbed Stingray loadbalancers.
 
 
 == Notes
- 
+
+== To use the Stingray Gem
+
+1. Install the gem
+git clone git@github.com:sammarx/stingray.git
+cd stingray
+rake build
+gem install pkg/stingray-0.0.1.gem
+
+2. Add the following line to your Gemfile:
+
+     gem 'aws-sdk'
+
+3. Create a config/stingray.yml as follows
+    url: <base url of stingray API>
+    user: <username for authentication>
+    password: <password for authentication>
+
+The URL must be the full path to the Stingray REST endpoint -
+eg. https://<stingray hostname>:<REST port>/api/tm/1.0/config/active/  
+
+PUT and DELETE operations will only work over HTTPS.
+
+== Examples
+
+Set up a connection to the Stingray Load Balancer
+    
+    Stingray.config(YAML.load(File.read('config/stingray.yml'))
+
+Initialize a new pool
+    p=Stingray::Pool.new
+
+Create a pool
+    p.create('test-pool')
+
+Add a node (server) to the pool.  Takes an array of hosts.  The hosts must be reachable from the Load Balancer.  
+    p.add_nodes_to_pool('[test1.example.com, test2.example.com]')
+
+Save the pool.  This sends a PUT request to the REST API.  No changes to the pool will be commited until the pool is saved.
+    p.save 
+
+List all existing pools
+    p.list_pools => ["test-pool"]
+
+Get a pool
+    p.pool('test-pool')
+
+Delete a node (server) from the pool.  Takes an array of hosts. 
+    p.delete_nodes_from_pool('[test2.example.com]')
+
+Delete a pool.  This is an immediate action.
+    p.delete
+
+
+
 * I'm still working on writing tests.
 
 == License
