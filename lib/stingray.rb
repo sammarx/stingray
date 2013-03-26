@@ -7,6 +7,7 @@ require_relative "stingray/pools"
 require_relative "stingray/extra"
 require_relative "stingray/vservers"
 require_relative "stingray/monitors"
+require_relative "stingray/rules"
 
 
 module Stingray
