@@ -15,7 +15,7 @@ gem install pkg/stingray-0.0.1.gem
 
 2. Add the following line to your Gemfile:
 
-     gem 'aws-sdk'
+     gem 'stingray'
 
 3. Create a config/stingray.yml as follows
     url: <base url of stingray API>
