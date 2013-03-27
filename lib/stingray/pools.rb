@@ -32,15 +32,20 @@ module Stingray
       # add an array of nodes to the pool
       def add_nodes_to_pool(node_arr)
         current_nodes=nodes
-        serv_arr.map {|node| current_nodes << node unless current_nodes.include?(node)}
-        @pool_hash.properties.basic.nodes=current_nodes
+        node_arr.map {|node| current_nodes << node unless current_nodes.include?(node)}
+        set_nodes(current_nodes.uniq)
       end
 
       # delete an array of nodes from the pool
-      def delete_nodes_from_pool(serv_arr)
+      def delete_nodes_from_pool(node_arr)
         current_nodes=nodes
-        serv_arr.map {|node| current_nodes.delete(node)if current_nodes.include?(node)}
-        @pool_hash.properties.basic.nodes=current_nodes
+        node_arr.map {|node| current_nodes.delete(node)if current_nodes.include?(node)}
+        set_nodes(current_nodes.uniq)
+      end
+
+      # set nodes for a pool
+      def set_nodes(node_arr)
+        @pool_hash.properties.basic.nodes=node_arr
       end
 
       # Delete a pool. 
