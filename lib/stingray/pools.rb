@@ -51,13 +51,15 @@ module Stingray
       # Delete a pool. 
       def destroy
         return if @name.nil?
-        get_rest["pools/#{@name}"].delete 
+        get_rest["pools/#{@name}"].delete
+        true
       end
 
       # Save the current pool.  
       def save
         return if @pool_hash.nil?
         get_rest["pools/#{@name}"].put @pool_hash.to_json, :content_type => "application/json"
+        true
       end
     
   end
