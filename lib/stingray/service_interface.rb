@@ -14,18 +14,32 @@ module Stingray
       end
 
     end
+
+    %w(get delete).each do |verb|
+      define_method("#{verb}_rest") do |path|
+        rest[URI.escape(path)].send(verb)
+      end
+    end
+
+    %w(post put).each do |verb|
+      define_method("#{verb}_rest") do |path, content, opts|
+        rest[URI.escape(path)].send(verb, content, opts)
+      end
+    end
+
     # Default REST object
-    def get_rest
-       @rest||=RestClient::Resource.new(@url,:user => @user, :password => @password)
+    def rest
+      @rest||=RestClient::Resource.new(URI.escape(@url),:user => @user, :password => @password)
     end
 
     # Parse out the endpoint
     def get_endpoint(endpoint='')
       begin
-        @r=self.get_rest[URI.escape(endpoint)].get
+        @r=self.get_rest(endpoint)
+        
       rescue => error
-        error.response
-      end      
+        error.respond_to?(:response) ? error.response : error
+      end
       @actions={}
       @response=Map.new(JSON.parse(@r))
       if @response.respond_to?(:children)
@@ -33,8 +47,6 @@ module Stingray
         @actions
       else 
         @response
-        
-        
       end
     end
 
