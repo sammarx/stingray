@@ -12,7 +12,7 @@ module Stingray
     # get one specific rule
     def rule(name)
       @name=name
-      @content=get_rest["rules/#{@name}"].get rescue nil
+      @content=get_rest "rules/#{@name}" rescue nil
     end
 
     # create a new rule
@@ -24,13 +24,13 @@ module Stingray
     # Save the current rule.  
     def save
       return if @content.nil?
-      get_rest["rules/#{@name}"].put @content, :content_type => "application/octet-stream"
+      put_rest "rules/#{@name}", @content, :content_type => "application/octet-stream"
     end
 
     # destroy the current rule.
     def destroy
       return if @name.nil?
-      get_rest["rules/#{@name}"].delete 
+      delete_rest "rules/#{@name}"
     end
 
 
