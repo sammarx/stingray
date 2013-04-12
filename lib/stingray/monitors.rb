@@ -23,13 +23,13 @@ module Stingray
     # Save the current monitor.  
     def save
       return if @monitor_hash.nil?
-      get_rest["monitors/#{@name}"].put @monitor_hash, :content_type => "application/json"
+      put_rest "monitors/#{@name}", @monitor_hash, :content_type => "application/json"
     end
 
     # destroy the current monitor.
     def destroy
       return if @name.nil?
-      get_rest["monitors/#{@name}"].delete 
+      delete_rest "monitors/#{@name}"
     end
 
 

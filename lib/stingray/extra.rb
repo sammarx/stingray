@@ -11,7 +11,7 @@ module Stingray
     # get one specific file
     def file(name)
       @name=name
-      @content=get_rest["extra/#{@name}"].get rescue nil
+      @content=get_rest("extra/#{@name}") rescue nil
     end
 
     # create a new file
@@ -23,13 +23,13 @@ module Stingray
     # Save the current file.  
     def save
       return if @content.nil?
-      get_rest["extra/#{@name}"].put @content, :content_type => "application/octet-stream"
+      put_rest "extra/#{@name}", @content, :content_type => "application/octet-stream"
     end
 
     # destroy the current file.
     def destroy
       return if @name.nil?
-      get_rest["extra/#{@name}"].delete 
+      delete_rest("extra/#{@name}")
     end
 
 
