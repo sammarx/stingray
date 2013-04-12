@@ -5,7 +5,12 @@ module Stingray
       
       include Stingray::ServiceInterface
 
-      attr_accessor :name, :pool_hash, :pools, :nodes
+      attr_accessor :pool_hash, :pools, :nodes
+      attr_reader :name
+
+      def name=(name)
+        @name = URI.escape(name.gsub('.', '-'))
+      end
       
       # List all available pools
       def list_pools
@@ -14,14 +19,16 @@ module Stingray
 
       # Get a named pool
       def pool(name)
-        @name=name
+        self.name=name
         @pool_hash=get_endpoint("pools/#{@name}") rescue nil
+        self
       end  
 
       # Create a new pool
       def create(name)
-        @name=name
+        self.name=name
         @pool_hash=Map.new.set(:properties, :basic, :nodes,[])
+        self
       end
 
       # list the nodes of a pool
@@ -50,14 +57,14 @@ module Stingray
 
       # Delete a pool. 
       def destroy
-        return if @name.nil?
+        return false if @name.nil?
         delete_rest "pools/#{@name}"
         true
       end
 
       # Save the current pool.  
       def save
-        return if @pool_hash.nil?
+        return false if @pool_hash.nil?
         put_rest "pools/#{@name}", @pool_hash.to_json, :content_type => "application/json"
         true
       end
