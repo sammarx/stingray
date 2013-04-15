@@ -5,13 +5,8 @@ module Stingray
       
       include Stingray::ServiceInterface
 
-      attr_accessor :pool_hash, :pools, :nodes
-      attr_reader :name
+      attr_accessor :name, :pool_hash, :pools, :nodes
 
-      def name=(name)
-        @name = URI.escape(name.gsub('.', '-'))
-      end
-      
       # List all available pools
       def list_pools
         @pools=get_endpoint("pools").keys
