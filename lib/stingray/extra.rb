@@ -1,10 +1,10 @@
 module Stingray
   class Extra
     include Stingray::ServiceInterface
-    attr_accessor :name, :files, :content
+    attr_accessor :name, :file, :files, :content
     
     # Get a list of all files
-    def list_files
+    def files
       @files=get_endpoint('extra').keys
     end
 
@@ -29,7 +29,7 @@ module Stingray
     # destroy the current file.
     def destroy
       return if @name.nil?
-      delete_rest("extra/#{@name}")
+      delete_rest "extra/#{@name}"
     end
 
 

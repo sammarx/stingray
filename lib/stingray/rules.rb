@@ -2,10 +2,10 @@ module Stingray
   class Rule
     
     include Stingray::ServiceInterface
-    attr_accessor :name, :rules, :content
+    attr_accessor :name, :rule, :rules, :content
     
     # Get a list of all rules
-    def list_rules
+    def rules
       @rules=get_endpoint('rule').keys
     end
 

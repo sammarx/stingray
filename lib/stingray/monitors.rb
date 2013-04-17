@@ -1,11 +1,11 @@
 module Stingray
   class Monitor
     include Stingray::ServiceInterface
-    attr_accessor :name, :monitor, :monitor_hash
+    attr_accessor :name, :monitor, :monitors, :monitor_hash
     
     # Get a list of all monitors
-    def list_monitors
-      @files=get_endpoint('monitors').keys
+    def monitors
+      @monitors=get_endpoint('monitors').keys
     end
 
     # get one specific monitor

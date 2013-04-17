@@ -5,11 +5,11 @@ module Stingray
       
       include Stingray::ServiceInterface
 
-      attr_accessor :name, :pool_hash, :pools, :nodes, :monitors, :note
+      attr_accessor :name, :pool_hash, :pools, :pool, :nodes, :monitors, :note
 
 
       # List all available pools
-      def list_pools
+      def pools
         @pools=get_endpoint("pools").keys
       end
 
