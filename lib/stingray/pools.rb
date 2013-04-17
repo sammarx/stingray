@@ -5,7 +5,7 @@ module Stingray
       
       include Stingray::ServiceInterface
 
-      attr_accessor :name, :pool_hash, :pools, :nodes
+      attr_accessor :name, :pool_hash, :pools, :nodes, :monitors, :note
 
 
       # List all available pools
@@ -30,23 +30,42 @@ module Stingray
         @nodes=@pool_hash.properties.basic.nodes || []
       end
 
+      # set nodes
+      def nodes=(node_arr)
+        @pool_hash.properties.basic.nodes=node_arr
+      end
+
+      # list monitors for a pool
+      def monitors
+        @monitors=@pool_hash.properties.basic.monitors || []
+      end
+
+      # monitors
+      def monitors=(monitor_arr)
+        @monitors=@pool_hash.properties.basic.monitors=monitor_arr
+      end
+
+      # notes
+      def note
+        @note=@pool_hash.properties.basic.note
+      end
+
+      def note=(note)
+        @pool_hash.properties.basic.note=note
+      end
+
       # add an array of nodes to the pool
       def add_nodes_to_pool(node_arr)
         current_nodes=nodes
         node_arr.map {|node| current_nodes << node unless current_nodes.include?(node)}
-        set_nodes(current_nodes.uniq)
+        nodes=current_nodes.uniq
       end
 
       # delete an array of nodes from the pool
       def delete_nodes_from_pool(node_arr)
         current_nodes=nodes
         node_arr.map {|node| current_nodes.delete(node)if current_nodes.include?(node)}
-        set_nodes(current_nodes.uniq)
-      end
-
-      # set nodes for a pool
-      def set_nodes(node_arr)
-        @pool_hash.properties.basic.nodes=node_arr
+        nodes=current_nodes.uniq
       end
 
       # Delete a pool. 
