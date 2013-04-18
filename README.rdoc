@@ -47,7 +47,7 @@ Save the pool.  This sends a PUT request to the REST API.  No changes to the poo
     p.save 
 
 List all existing pools
-    p.list_pools => ["test-pool"]
+    p.pools => ["test-pool"]
 
 Get a pool
     p.pool('test-pool')
