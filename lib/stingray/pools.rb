@@ -15,8 +15,12 @@ module Stingray
 
       # Get a named pool
       def pool(name)
-        @name=name
-        @pool_hash=get_endpoint("pools/#{@name}") rescue nil
+        begin
+          @name=name
+          @pool_hash=get_endpoint("pools/#{@name}") 
+        rescue Stingray::NotFoundError 
+          nil
+        end
       end  
 
       # Create a new pool

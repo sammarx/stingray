@@ -10,8 +10,12 @@ module Stingray
 
     # get one specific file
     def file(name)
-      @name=name
-      @content=get_rest("extra/#{@name}") rescue nil
+      begin
+        @name=name
+        @content=get_rest("extra/#{@name}")
+      rescue Stingray::NotFoundError 
+        nil
+      end
     end
 
     # create a new file
