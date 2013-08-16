@@ -10,8 +10,12 @@ module Stingray
 
     # get one specific monitor
     def monitor(name)
-      @name=name
-      @monitor_hash=get_endpoint("monitors/#{@name}") rescue nil
+      begin
+        @name=name
+        @monitor_hash=get_endpoint("monitors/#{@name}") 
+      rescue Stingray::NotFoundError 
+        nil
+      end
     end
 
     # create a new monitor

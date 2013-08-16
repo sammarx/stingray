@@ -17,13 +17,21 @@ module Stingray
 
     %w(get delete).each do |verb|
       define_method("#{verb}_rest") do |path|
-        rest[URI.escape(path)].send(verb)
+        begin
+          rest[URI.escape(path)].send(verb)
+        rescue RestClient::Exception => e
+          raise_error(e)
+        end
       end
     end
 
     %w(post put).each do |verb|
       define_method("#{verb}_rest") do |path, content, opts|
-        rest[URI.escape(path)].send(verb, content, opts)
+        begin
+          rest[URI.escape(path)].send(verb, content, opts)
+        rescue RestClient::Exception => e
+          raise_error(e)
+        end
       end
     end
 
@@ -34,19 +42,24 @@ module Stingray
 
     # Parse out the endpoint
     def get_endpoint(endpoint='')
-      begin
-        @r=self.get_rest(endpoint)
-        
-      rescue => error
-        error.respond_to?(:response) ? error.response : error
-      end
-      @actions={}
-      @response=Map.new(JSON.parse(@r))
-      if @response.respond_to?(:children)
-        @response.children.map{|k|  @actions[k.values.first]=k.values.last} unless error
-        @actions
+      r=self.get_rest(endpoint)
+      actions={}
+      response=Map.new(JSON.parse(r))
+      if response.respond_to?(:children)
+        response.children.map{|k| actions[k.values.first]=k.values.last} unless error
+        actions
       else 
-        @response
+        response
+      end
+    end
+
+    private 
+
+    def raise_error(e)
+      if e.is_a? RestClient::ResourceNotFound
+        raise NotFoundError.new(e)
+      else
+        raise Error.new(e)
       end
     end
 

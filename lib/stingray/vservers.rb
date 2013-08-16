@@ -10,8 +10,12 @@ module Stingray
 
     # get one specific vserver
     def vserver(name)
-      @name=name
-      @vserver_hash=get_endpoint("vservers/#{@name}") rescue nil
+      begin
+        @name=name
+        @vserver_hash=get_endpoint("vservers/#{@name}")
+      rescue Stingray::NotFoundError 
+        nil
+      end
     end
 
     # default pool for vserver
