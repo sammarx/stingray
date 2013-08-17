@@ -11,8 +11,12 @@ module Stingray
 
     # get one specific rule
     def rule(name)
-      @name=name
-      @content=get_rest "rules/#{@name}" rescue nil
+      begin
+        @name=name
+        @content=get_rest "rules/#{@name}"
+      rescue Stingray::NotFoundError 
+        nil
+      end
     end
 
     # create a new rule

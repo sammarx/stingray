@@ -10,9 +10,11 @@ gem "json"
 gem "map"
 
 group :development do
-  gem "shoulda", ">= 0"
+  gem "shoulda"
   gem "rdoc", "~> 3.12"
-  gem "bundler", "~> 1.1.0"
   gem "jeweler", "~> 1.8.4"
-  gem "simplecov", ">= 0"
+  gem "simplecov"
+  gem "webmock"
 end
+
+
