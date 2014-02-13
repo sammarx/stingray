@@ -60,7 +60,6 @@ Delete a pool.  This is an immediate action.
 
 
 
-* I'm still working on writing tests.
 
 == License
 Under the {MIT License}[http://www.opensource.org/licenses/MIT].
